@@ -37,12 +37,9 @@ type Usuario {
         descripcion: String
         especialidad: String
         imagen: String
-<<<<<<< HEAD
         latitud: String
         longitud: String
         estado: String
-=======
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
     }
 
     type Calificacion {
@@ -142,14 +139,10 @@ type Usuario {
         especialidad: String
         password: String
         imagen: String
-<<<<<<< HEAD
         ubicacion: String!
         latitud: String
         longitud: String 
         estado: String
-=======
-        ubicacion: String! 
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
     }
 
     input ContratoInput {
@@ -254,12 +247,8 @@ type Usuario {
         obtenerPagoUser(token: String!): [Pago]
         obtenerArtistaClick(id: ID!) : Artista
         obtenerPostsClick(artista: ID!): [Post]
-<<<<<<< HEAD
         obtenerImagenArtista(id: ID!): String
 
-=======
-        
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
         #BUSQUEDAS AVANZADAS 
         mejoresCalificados: [topCliente]
     }

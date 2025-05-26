@@ -9,16 +9,9 @@ const bcryptjs = require("bcryptjs"); // IMPORTAR bcryptjs
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "PALABRASECRETA" });
 
-<<<<<<< HEAD
 //************************************************//
 //Creacion de Tokens//
 //************************************************//
-=======
-
-    //************************************************//
-                 //Creacion de Tokens//                 
-    //************************************************// 
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
 const crearToken = (usuario, PALABRASECRETA, expiresIn) => {
   console.log(usuario); // Verifica qué valores tiene usuario
   const { id, email, nombre, apellidoP } = usuario;
@@ -30,7 +23,6 @@ const crearToken = (usuario, PALABRASECRETA, expiresIn) => {
 
 const crearTokenArt = (Artista, PALABRASECRETA, expiresIn) => {
   console.log(Artista); // Verifica qué valores tiene usuario
-<<<<<<< HEAD
   const {
     id,
     email,
@@ -66,23 +58,12 @@ const crearTokenArt = (Artista, PALABRASECRETA, expiresIn) => {
       expiresIn,
     }
   );
-=======
-  const { id, email, nombre, apellidoP } = Artista;
-
-  return jwt.sign({ id, email, nombre, apellidoP }, PALABRASECRETA, {
-    expiresIn,
-  });
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
 };
 
 const resolvers = {
   Query: {
     //************************************************//
-<<<<<<< HEAD
     //Consultas artista//
-=======
-                 //Consultas artista//
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
     //************************************************//
     obtenerArtista: async (_, { token }) => {
       const ArtistaID = await jwt.verify(token, process.env.PALABRASECRETA);
@@ -90,15 +71,12 @@ const resolvers = {
       return ArtistaID;
     },
 
-<<<<<<< HEAD
     obtenerImagenArtista: async (_, { id }) => {
       const artista = await Artista.findById(id).select("imagen");
       if (!artista) throw new Error("Artista no encontrado");
       return artista.imagen;
     },
 
-=======
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
     obtenerCalificaciones: async (_, { token }) => {
       try {
         // Verifica el token
@@ -261,11 +239,7 @@ const resolvers = {
     },
 
     //************************************************//
-<<<<<<< HEAD
     //Consultas generales//
-=======
-                 //Consultas generales//
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
     //************************************************//
 
     obtenerPostAll: async () => {
@@ -288,7 +262,6 @@ const resolvers = {
       }
     },
 
-<<<<<<< HEAD
     obtenerPostsClick: async (_, { artista }) => {
       const posts = await Post.find({ artista }); // Usar "Post" en lugar de "post"
 
@@ -296,17 +269,6 @@ const resolvers = {
         throw new Error("Este usuario no tiene posts");
       }
 
-=======
-
-    
-    obtenerPostsClick: async (_, { artista }) => {
-      const posts = await Post.find({ artista });  // Usar "Post" en lugar de "post"
-      
-      if (!posts.length) {
-        throw new Error("Este usuario no tiene posts");
-      }
-      
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
       return posts;
     },
 
@@ -378,17 +340,11 @@ const resolvers = {
     },
 
     mejoresCalificados: async (_, { id }) => {
-<<<<<<< HEAD
       "Algo";
-=======
-      "Algo"
-    
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
     },
   },
 
   //************************************************//
-<<<<<<< HEAD
   //Empiezan los mutation//
   //************************************************//
 
@@ -413,55 +369,23 @@ const resolvers = {
       }
 
       // Hashear password
-=======
-               //Empiezan los mutation//
-  //************************************************//
-
-
-  Mutation: {
-
-  //************************************************//
-               //Empiezan con Inserts//
-  //************************************************//
-
-    nuevoUsuario: async (_, { input }) => {
-      const { email, password } = input;
-
-      // Revisar si el usuario ya está registrado
-      const existeUsuario = await Usuario.findOne({ email });
-      if (existeUsuario) {
-        throw new Error("El usuario ya está registrado");
-      }
-
-      // Hashear password correctamente
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
       const salt = await bcryptjs.genSalt(10);
       input.password = await bcryptjs.hash(password, salt);
 
       try {
-<<<<<<< HEAD
         // Crear usuario
-=======
-        // Crear usuario y guardar en la base de datos
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
         const nuevoUsuario = new Usuario(input);
         await nuevoUsuario.save();
 
         console.log("Usuario creado:", nuevoUsuario);
         return nuevoUsuario;
       } catch (error) {
-<<<<<<< HEAD
         console.error("Error al crear usuario:", error);
         throw new Error("No se pudo crear el usuario.");
-=======
-        console.error("Error al crear usuario:", error, error.graphQLErrors);
-        throw new Error("No se pudo crear el usuario", error.graphQLErrors, error);
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
       }
     },
 
     nuevoArtista: async (_, { input }) => {
-<<<<<<< HEAD
       const { email, telefono, password, nombreArtistico } = input;
 
       // Revisar si el correo ya está registrado
@@ -481,31 +405,15 @@ const resolvers = {
         throw new Error(
           "Ya hay alguien registrado con ese nombre artístico, Elige otro."
         );
-=======
-      const { email, password } = input;
-
-      // Revisar si el artista ya está registrado
-      const existeArtista = await Artista.findOne({ email });
-      if (existeArtista) {
-        throw new Error("El artista ya está registrado");
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
       }
 
       try {
         // Hashear el password
-<<<<<<< HEAD
         const salt = await bcryptjs.genSalt(10);
         input.password = await bcryptjs.hash(password, salt);
 
         // Crear nuevo artista
         const nuevoArtista = new Artista(input);
-=======
-        const salt = await bcryptjs.genSalt(10); // Usamos genSalt
-        input.password = await bcryptjs.hash(password, salt); // Hasheamos el password
-
-        // Crear nuevo artista
-        const nuevoArtista = new Artista(input); // Usar el modelo Artista en lugar de Usuario
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
 
         // Guardar en la base de datos
         await nuevoArtista.save();
@@ -515,11 +423,7 @@ const resolvers = {
         return nuevoArtista;
       } catch (error) {
         console.error("Error al crear artista:", error);
-<<<<<<< HEAD
         throw new Error("No se pudo crear el artista.");
-=======
-        throw new Error("No se pudo crear el artista");
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
       }
     },
 
@@ -672,11 +576,7 @@ const resolvers = {
       }
     },
     //************************************************//
-<<<<<<< HEAD
     //Autenticaciones//
-=======
-                   //Autenticaciones//
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
     //************************************************//
 
     autenticarUsuario: async (_, { input }) => {
@@ -726,11 +626,7 @@ const resolvers = {
     },
 
     //************************************************//
-<<<<<<< HEAD
     //Actualizaciones//
-=======
-                   //Actualizaciones//
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
     //************************************************//
 
     actualizarPost: async (_, { id, input }) => {
@@ -775,13 +671,9 @@ const resolvers = {
       }
 
       //Si lo hace lo guardamos
-<<<<<<< HEAD
       artista = await Artista.findByIdAndUpdate({ _id: id }, input, {
         new: true,
       });
-=======
-      artista = await Artista.findByIdAndUpdate({ _id: id }, input, { new: true });
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
       return artista;
     },
 
@@ -792,22 +684,14 @@ const resolvers = {
       }
 
       //Si lo hace lo guardamos
-<<<<<<< HEAD
       usuario = await Usuario.findByIdAndUpdate({ _id: id }, input, {
         new: true,
       });
-=======
-      usuario = await Usuario.findByIdAndUpdate({ _id: id }, input, { new: true });
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
       return usuario;
     },
 
     //************************************************//
-<<<<<<< HEAD
     //Eliminaciones//
-=======
-                    //Eliminaciones//
->>>>>>> 7e95546b194d4d3501f2f5d092838fce8c1c3fca
     //************************************************//
 
     eliminarPost: async (_, { id }) => {

@@ -17,7 +17,6 @@ const ArtistaSchema = new mongoose.Schema({
     latitud: { type: Number, required: true },
     longitud: { type: Number, required: true },
     estado: { type: String, default: "activo" }, // Estado del artista (activo/inactivo)
-
 });
 
 module.exports = mongoose.model('Artista', ArtistaSchema);
