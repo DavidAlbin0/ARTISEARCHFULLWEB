@@ -690,7 +690,29 @@ const resolvers = {
       return usuario;
     },
 
-    
+    actualizarPassword: async (_, { email, telefono, input }) =>{
+      let usuario = await Usuario.findOne({ email, telefono });
+      let artista = await Artista.findOne({ email, telefono });
+      if (!usuario && !artista) {
+        throw new Error("No existe el usuario o artista con esos datos");
+      }
+
+      // Hashear la nueva contraseña
+      const salt = await bcryptjs.genSalt(10);
+      const nuevaContraseña = await bcryptjs.hash(input.password, salt);
+      if (usuario) {
+        // Actualizar contraseña del usuario
+        usuario.password = nuevaContraseña;
+        await usuario.save();
+        return "Contraseña de usuario actualizada correctamente";
+      } else if (artista) {
+        // Actualizar contraseña del artista
+        artista.password = nuevaContraseña;
+        await artista.save();
+        return "Contraseña de artista actualizada correctamente";
+      }
+
+    },
 
     //************************************************//
     //Eliminaciones//

@@ -194,6 +194,10 @@ type Usuario {
         password: String
     }
 
+    input PasswordInput {
+         password: String!  
+    }
+
    # //************************************************//
    #                  //Mutations//
    # //************************************************//
@@ -217,6 +221,8 @@ type Usuario {
         actualizarPago(id: ID, input: PagoInput): Pago
         actualizarArtista(id: ID, input: ArtistaInput): Artista
         actualizarUsuario(id: ID, input: UsuarioInput): Usuario
+        actualizarPassword(email: String!, telefono: String!, input: PasswordInput!): String!
+
         
         #ELIMINACIONES
         eliminarCallificacion(id: ID!) : String

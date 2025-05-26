@@ -14,8 +14,8 @@ const ArtistaSchema = new mongoose.Schema({
     genero:  { type: String, trim: true},
     creado: { type: Date, default: Date.now },
     password: { type: String, required: true, trim: true },
-    latitud: { type: Number, required: true },
-    longitud: { type: Number, required: true },
+    latitud: { type: Number},
+    longitud: { type: Number },
     estado: { type: String, default: "activo" }, // Estado del artista (activo/inactivo)
 });
 
