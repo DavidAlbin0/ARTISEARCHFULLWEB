@@ -14,9 +14,9 @@ require("dotenv").config({ path: "PALABRASECRETA" });
 //************************************************//
 const crearToken = (usuario, PALABRASECRETA, expiresIn) => {
   console.log(usuario); // Verifica qué valores tiene usuario
-  const { id, email, nombre, apellidoP } = usuario;
+  const { id, email, nombre, apellidoP, apellidoM, telefono } = usuario;
 
-  return jwt.sign({ id, email, nombre, apellidoP }, PALABRASECRETA, {
+  return jwt.sign({ id, email, nombre, apellidoP, apellidoM, telefono }, PALABRASECRETA, {
     expiresIn,
   });
 };
@@ -689,6 +689,8 @@ const resolvers = {
       });
       return usuario;
     },
+
+    
 
     //************************************************//
     //Eliminaciones//
