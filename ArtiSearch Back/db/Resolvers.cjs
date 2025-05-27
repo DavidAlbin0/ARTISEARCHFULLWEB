@@ -667,7 +667,7 @@ const resolvers = {
     actualizarArtista: async (_, { id, input }) => {
       let artista = await Artista.findById(id);
       if (!artista) {
-        throw new Error("No existe el post");
+        throw new Error("No existe el artista");
       }
 
       //Si lo hace lo guardamos
@@ -675,12 +675,13 @@ const resolvers = {
         new: true,
       });
       return artista;
+      
     },
 
     actualizarUsuario: async (_, { id, input }) => {
       let usuario = await Usuario.findById(id);
       if (!usuario) {
-        throw new Error("No existe el post");
+        throw new Error("No existe el Usuario");
       }
 
       //Si lo hace lo guardamos

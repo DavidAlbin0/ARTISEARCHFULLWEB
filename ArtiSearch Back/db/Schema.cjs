@@ -139,7 +139,7 @@ type Usuario {
         especialidad: String
         password: String
         imagen: String
-        ubicacion: String!
+        ubicacion: String
         latitud: String
         longitud: String 
         estado: String
