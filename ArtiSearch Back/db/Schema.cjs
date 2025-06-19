@@ -140,8 +140,8 @@ type Usuario {
         password: String
         imagen: String
         ubicacion: String
-        latitud: String
-        longitud: String 
+        latitud: Float
+        longitud: Float 
         estado: String
     }
 
@@ -222,6 +222,7 @@ type Usuario {
         actualizarArtista(id: ID, input: ArtistaInput): Artista
         actualizarUsuario(id: ID, input: UsuarioInput): Usuario
         actualizarPassword(email: String!, telefono: String!, input: PasswordInput!): String!
+        actualizarLocalizacion(id: ID!, latitud: Float!, longitud: Float!): Artista
 
         
         #ELIMINACIONES
@@ -254,6 +255,10 @@ type Usuario {
         obtenerArtistaClick(id: ID!) : Artista
         obtenerPostsClick(artista: ID!): [Post]
         obtenerImagenArtista(id: ID!): String
+        buscarArtistaPorCorreoTelefono(email: String!, telefono: Int!): Artista
+        buscarUsuarioPorCorreoTelefono(email: String!, telefono: Int!): Usuario
+        obtenerArtistaBusqueda: [Artista]
+        obtenerUsuarioBusqueda: [Usuario]
 
         #BUSQUEDAS AVANZADAS 
         mejoresCalificados: [topCliente]

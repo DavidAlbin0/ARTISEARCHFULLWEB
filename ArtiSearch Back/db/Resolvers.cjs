@@ -16,9 +16,13 @@ const crearToken = (usuario, PALABRASECRETA, expiresIn) => {
   console.log(usuario); // Verifica qué valores tiene usuario
   const { id, email, nombre, apellidoP, apellidoM, telefono } = usuario;
 
-  return jwt.sign({ id, email, nombre, apellidoP, apellidoM, telefono }, PALABRASECRETA, {
-    expiresIn,
-  });
+  return jwt.sign(
+    { id, email, nombre, apellidoP, apellidoM, telefono },
+    PALABRASECRETA,
+    {
+      expiresIn,
+    }
+  );
 };
 
 const crearTokenArt = (Artista, PALABRASECRETA, expiresIn) => {
@@ -342,7 +346,27 @@ const resolvers = {
     mejoresCalificados: async (_, { id }) => {
       "Algo";
     },
+
+
+      buscarArtistaPorCorreoTelefono: async (_, { email, telefono }) => {
+    return await Artista.findOne({ email, telefono });
   },
+
+  buscarUsuarioPorCorreoTelefono: async (_, { email, telefono }) => {
+    return await Usuario.findOne({ email, telefono });
+  },
+
+
+    obtenerArtistaBusqueda: async () => {
+      return await Artista.find({});
+    },
+
+    obtenerUsuarioBusqueda: async () => {
+      return await Usuario.find({});
+    },
+
+  },
+
 
   //************************************************//
   //Empiezan los mutation//
@@ -452,9 +476,9 @@ const resolvers = {
             usuario: input.usuario,
             artista: input.artista,
             monto: input.monto, // Mismo monto del contrato
-            metodoPago: "Pendiente", // Se actualizará después
+            // metodoPago: "Pendiente", // Se actualizará después
             estado: "Pendiente", // Pago inicial en estado Pendiente
-            fechaPago: null, // Solo se asignará cuando el estado cambie
+            // fechaPago: null, // Solo se asignará cuando el estado cambie
           });
 
           await nuevoPago.save();
@@ -564,10 +588,19 @@ const resolvers = {
           descripcion,
           imagen,
           ubicacion,
-        });
-
-        // Guardar en la base de datos
-        await nuevoPost.save();
+        }); // ...dentro de resolvers.Mutation...
+        actualizarLocalizacion: async (_, { id, latitud, longitud }) => {
+          const artista = await Artista.findById(id);
+          if (!artista) {
+            throw new Error("No existe el artista");
+          }
+          artista.latitud = latitud;
+          artista.longitud = longitud;
+          await artista.save();
+          return artista;
+        },
+          // Guardar en la base de datos
+          await nuevoPost.save();
 
         return nuevoPost;
       } catch (error) {
@@ -675,7 +708,6 @@ const resolvers = {
         new: true,
       });
       return artista;
-      
     },
 
     actualizarUsuario: async (_, { id, input }) => {
@@ -691,7 +723,7 @@ const resolvers = {
       return usuario;
     },
 
-    actualizarPassword: async (_, { email, telefono, input }) =>{
+    actualizarPassword: async (_, { email, telefono, input }) => {
       let usuario = await Usuario.findOne({ email, telefono });
       let artista = await Artista.findOne({ email, telefono });
       if (!usuario && !artista) {
@@ -712,7 +744,18 @@ const resolvers = {
         await artista.save();
         return "Contraseña de artista actualizada correctamente";
       }
+    },
 
+    // ...dentro de resolvers.Mutation...
+    actualizarLocalizacion: async (_, { id, latitud, longitud }) => {
+      const artista = await Artista.findById(id);
+      if (!artista) {
+        throw new Error("No existe el artista");
+      }
+      artista.latitud = latitud;
+      artista.longitud = longitud;
+      await artista.save();
+      return artista;
     },
 
     //************************************************//

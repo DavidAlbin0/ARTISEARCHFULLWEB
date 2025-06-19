@@ -14,9 +14,9 @@ const ArtistaSchema = new mongoose.Schema({
     genero:  { type: String, trim: true},
     creado: { type: Date, default: Date.now },
     password: { type: String, required: true, trim: true },
-    latitud: { type: Number},
-    longitud: { type: Number },
-    estado: { type: String, default: "activo" }, // Estado del artista (activo/inactivo)
+    latitud: { type: Number, default: 0 }, // Latitud de la ubicación del artista
+    longitud: { type: Number, default: 0 }, // Longitud de la ubicación del artista
+    estado: { type: String, default: "ACTIVO" }, // Estado del artista (activo/inactivo)
 });
 
 module.exports = mongoose.model('Artista', ArtistaSchema);
