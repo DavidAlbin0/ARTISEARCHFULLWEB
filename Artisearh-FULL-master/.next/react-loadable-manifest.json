@@ -10,11 +10,5 @@
     "files": [
       "static/chunks/_pages-dir-browser_node_modules_next_dist_pages__error_js.js"
     ]
-  },
-  "pages\\profile.js -> ../../components/MapClientOnly": {
-    "id": "pages\\profile.js -> ../../components/MapClientOnly",
-    "files": [
-      "static/chunks/_pages-dir-browser_components_MapClientOnly_js.js"
-    ]
   }
 }

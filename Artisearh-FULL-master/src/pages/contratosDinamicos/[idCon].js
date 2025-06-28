@@ -140,6 +140,10 @@ const ContratoDinamico = () => {
       detalles,
       fechaEstimadaFin: fechaEstimada,
       estado: "Pendiente",
+      hechoPor: {
+        id: idToken,
+        tipo: tipo === "usuario" ? "Usuario" : "Artista"
+      }
     };
     try {
       await nuevoContrato({ variables: { input } });
